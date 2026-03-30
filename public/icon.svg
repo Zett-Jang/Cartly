@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.7" y2="1">
+      <stop offset="0%" stop-color="#FF9500"/>
+      <stop offset="100%" stop-color="#FF5500"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="110" fill="url(#bg)"/>
+  <!-- 손잡이 왼쪽 -->
+  <path d="M196 220 Q196 148 220 132 Q244 116 244 220" fill="none" stroke="white" stroke-width="28" stroke-linecap="round"/>
+  <!-- 손잡이 오른쪽 -->
+  <path d="M268 220 Q268 148 292 132 Q316 116 316 220" fill="none" stroke="white" stroke-width="28" stroke-linecap="round"/>
+  <!-- 바구니 몸통 -->
+  <path d="M108 234 Q96 234 100 254 L128 370 Q133 390 158 390 L354 390 Q379 390 384 370 L412 254 Q416 234 404 234 Z" fill="none" stroke="white" stroke-width="28" stroke-linejoin="round"/>
+  <!-- 체크마크 -->
+  <polyline points="188,310 226,350 324,268" fill="none" stroke="white" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
