@@ -508,39 +508,35 @@ export default function ShoppingCartMVP() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-100 via-orange-50/40 to-slate-100 p-4">
-      <div className="mx-auto flex max-w-6xl justify-center">
-        <div className="w-full max-w-[402px] overflow-hidden rounded-[38px] border-[10px] border-slate-900 bg-slate-50" style={{ boxShadow: "0 36px 90px rgba(15,23,42,0.32)" }}>
-          <div className="relative overflow-y-auto bg-gradient-to-b from-[#fffdf9] via-[#f8fafc] to-[#f8fafc] p-3.5" style={{ height: 844 }}>
-            {currentScreen === "list" ? (
-              <ListScreen lists={lists} newListTitle={newListTitle} setNewListTitle={setNewListTitle} handleCreateList={handleCreateList} openListDetail={(id) => { setSelectedListId(id); setCurrentScreen("detail"); setIsEditing(false); resetForm(); }} requestDeleteList={(id) => setPendingDeleteListId(id)} currency={currency} language={language} setLanguage={setLanguage} />
-            ) : (
-              <DetailScreen selectedList={selectedList} selectedSummary={selectedSummary} setCurrentScreen={setCurrentScreen} itemName={itemName} setItemName={setItemName} itemQty={itemQty} setItemQty={setItemQty} itemPrice={itemPrice} setItemPrice={setItemPrice} itemMemo={itemMemo} setItemMemo={setItemMemo} currency={currency} setCurrency={setCurrency} handleSubmitItem={handleSubmitItem} toggleItem={toggleItem} deleteItem={deleteItem} openSharedPreview={openSharedPreview} isEditing={isEditing} setIsEditing={setIsEditing} language={language} editingItemId={editingItemId} startEditItem={startEditItem} cancelEditingItem={cancelEditingItem} reorderSelectedListItems={reorderItems} />
-            )}
-            <ShareSlideUpPanel isOpen={showSharePanel} onClose={() => setShowSharePanel(false)} selectedList={selectedList} selectedSummary={selectedSummary} currency={currency} language={language} />
-            {pendingDeleteListId && (
-              <div className="absolute inset-0 z-50 flex items-center justify-center bg-slate-900/35 p-4" style={{ backdropFilter: "blur(2px)" }}>
-                <div className="w-full max-w-[320px] rounded-2xl border border-slate-200 bg-white p-5" style={{ boxShadow: "0 20px 60px rgba(15,23,42,0.18)" }}>
-                  <div className="text-[16px] font-semibold tracking-tight text-slate-900">{t.deleteListConfirmTitle}</div>
-                  <p className="mt-2 text-[13px] leading-5 text-slate-500">{t.deleteListConfirmBody}</p>
-                  <div className="mt-5 grid grid-cols-2 gap-2">
-                    <Button variant="outline" onClick={() => setPendingDeleteListId(null)} className="h-11 rounded-xl border-slate-200 text-[13px] font-semibold text-slate-600 hover:bg-slate-50">{t.cancel}</Button>
-                    <Button onClick={confirmDeleteList} className="h-11 rounded-xl bg-rose-500 text-[13px] font-semibold text-white hover:bg-rose-600">{t.deleteList}</Button>
-                  </div>
-                </div>
+    <div className="min-h-screen bg-gradient-to-b from-slate-100 via-orange-50/40 to-slate-100">
+      <div className="relative overflow-y-auto bg-gradient-to-b from-[#fffdf9] via-[#f8fafc] to-[#f8fafc] p-3.5 min-h-screen">
+        {currentScreen === "list" ? (
+          <ListScreen lists={lists} newListTitle={newListTitle} setNewListTitle={setNewListTitle} handleCreateList={handleCreateList} openListDetail={(id) => { setSelectedListId(id); setCurrentScreen("detail"); setIsEditing(false); resetForm(); }} requestDeleteList={(id) => setPendingDeleteListId(id)} currency={currency} language={language} setLanguage={setLanguage} />
+        ) : (
+          <DetailScreen selectedList={selectedList} selectedSummary={selectedSummary} setCurrentScreen={setCurrentScreen} itemName={itemName} setItemName={setItemName} itemQty={itemQty} setItemQty={setItemQty} itemPrice={itemPrice} setItemPrice={setItemPrice} itemMemo={itemMemo} setItemMemo={setItemMemo} currency={currency} setCurrency={setCurrency} handleSubmitItem={handleSubmitItem} toggleItem={toggleItem} deleteItem={deleteItem} openSharedPreview={openSharedPreview} isEditing={isEditing} setIsEditing={setIsEditing} language={language} editingItemId={editingItemId} startEditItem={startEditItem} cancelEditingItem={cancelEditingItem} reorderSelectedListItems={reorderItems} />
+        )}
+        <ShareSlideUpPanel isOpen={showSharePanel} onClose={() => setShowSharePanel(false)} selectedList={selectedList} selectedSummary={selectedSummary} currency={currency} language={language} />
+        {pendingDeleteListId && (
+          <div className="absolute inset-0 z-50 flex items-center justify-center bg-slate-900/35 p-4" style={{ backdropFilter: "blur(2px)" }}>
+            <div className="w-full max-w-[320px] rounded-2xl border border-slate-200 bg-white p-5" style={{ boxShadow: "0 20px 60px rgba(15,23,42,0.18)" }}>
+              <div className="text-[16px] font-semibold tracking-tight text-slate-900">{t.deleteListConfirmTitle}</div>
+              <p className="mt-2 text-[13px] leading-5 text-slate-500">{t.deleteListConfirmBody}</p>
+              <div className="mt-5 grid grid-cols-2 gap-2">
+                <Button variant="outline" onClick={() => setPendingDeleteListId(null)} className="h-11 rounded-xl border-slate-200 text-[13px] font-semibold text-slate-600 hover:bg-slate-50">{t.cancel}</Button>
+                <Button onClick={confirmDeleteList} className="h-11 rounded-xl bg-rose-500 text-[13px] font-semibold text-white hover:bg-rose-600">{t.deleteList}</Button>
               </div>
-            )}
-            {showCreateListAlert && (
-              <div className="absolute inset-0 z-50 flex items-center justify-center bg-slate-900/35 p-4" style={{ backdropFilter: "blur(2px)" }}>
-                <div className="w-full max-w-[320px] rounded-2xl border border-slate-200 bg-white p-5" style={{ boxShadow: "0 20px 60px rgba(15,23,42,0.18)" }}>
-                  <div className="text-[16px] font-semibold tracking-tight text-slate-900">{language === "en" ? "Please enter a list name" : "새 리스트 이름을 입력해주세요"}</div>
-                  <p className="mt-2 text-[13px] leading-5 text-slate-500">{language === "en" ? "Add a name first, then tap Add again." : "리스트 이름을 입력한 뒤 다시 추가하기를 눌러주세요."}</p>
-                  <div className="mt-5"><Button onClick={() => setShowCreateListAlert(false)} className="h-11 w-full rounded-xl bg-slate-900 text-[13px] font-semibold text-white hover:bg-slate-800">{t.close}</Button></div>
-                </div>
-              </div>
-            )}
+            </div>
           </div>
-        </div>
+        )}
+        {showCreateListAlert && (
+          <div className="absolute inset-0 z-50 flex items-center justify-center bg-slate-900/35 p-4" style={{ backdropFilter: "blur(2px)" }}>
+            <div className="w-full max-w-[320px] rounded-2xl border border-slate-200 bg-white p-5" style={{ boxShadow: "0 20px 60px rgba(15,23,42,0.18)" }}>
+              <div className="text-[16px] font-semibold tracking-tight text-slate-900">{language === "en" ? "Please enter a list name" : "새 리스트 이름을 입력해주세요"}</div>
+              <p className="mt-2 text-[13px] leading-5 text-slate-500">{language === "en" ? "Add a name first, then tap Add again." : "리스트 이름을 입력한 뒤 다시 추가하기를 눌러주세요."}</p>
+              <div className="mt-5"><Button onClick={() => setShowCreateListAlert(false)} className="h-11 w-full rounded-xl bg-slate-900 text-[13px] font-semibold text-white hover:bg-slate-800">{t.close}</Button></div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
