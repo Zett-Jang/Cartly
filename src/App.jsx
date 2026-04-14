@@ -121,7 +121,7 @@ function parseQty(v) { const q = String(v || "").replace(/[^0-9]/g, ""); return 
 function buildShareText(list, c, l) {
   const t = getT(l), s = calcSummary(list?.items || []);
   const h = l === "en" ? `[Cartly]\n${list.title}` : `[카틀리]\n${list.title}`;
-  const lines = (list?.items || []).map(i => `- ${i.name} ${displayQty(i.qty, l)} / ${formatCurrency(i.price, c)}`);
+  const lines = (list?.items || []).map(i => `${i.checked ? "✅" : "⬜"} ${i.name} ${displayQty(i.qty, l)} / ${formatCurrency(i.price, c)}`);
   return [h, ...lines, `\n${t.total}: ${formatCurrency(s.total, c)}`].join("\n");
 }
 
@@ -246,10 +246,7 @@ function ListScreen({ lists, newListTitle, setNewListTitle, handleCreateList, op
           </div>
           <LanguageMenu language={language} setLanguage={setLanguage} />
         </div>
-
-        {/* 광고 배너 영역 */}
         <AdBanner language={language} />
-
         <Card className="w-full border border-amber-100/80 bg-white/95" style={{ boxShadow: "0 12px 30px rgba(251,146,60,0.08)" }}>
           <CardContent className="p-3">
             <div className="flex items-center gap-2 rounded-xl border border-amber-50 bg-gradient-to-r from-amber-50 via-orange-50 to-white p-2">
@@ -432,7 +429,6 @@ export default function ShoppingCartMVP() {
   const [showCreateListAlert, setShowCreateListAlert] = useState(false);
   const [showSharePanel, setShowSharePanel] = useState(false);
 
-  // Load saved data on mount
   useEffect(() => {
     const saved = loadLists();
     if (saved && saved.length > 0) {
@@ -442,7 +438,6 @@ export default function ShoppingCartMVP() {
     setIsLoaded(true);
   }, []);
 
-  // Auto-save whenever lists change (after initial load)
   useEffect(() => {
     if (isLoaded) saveLists(lists);
   }, [lists, isLoaded]);
